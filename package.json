@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --progress --inline",
-    "build": "rm -rf ./build && NODE_ENV=\"production\" webpack --progress --colors",
+    "build": "NODE_ENV=\"production\" webpack --progress --colors",
     "build-serve": "http-server ./build -p 8079",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test --watch"

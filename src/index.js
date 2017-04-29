@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
-import {createBrowserHistory} from 'history';
+import {createBrowserHistory, createHashHistory} from 'history';
 import {routerMiddleware, ConnectedRouter, syncHistoryWithStore} from 'react-router-redux';
 import Thunk from 'redux-thunk';
 
@@ -12,9 +12,12 @@ import './scss/app.scss';
 import Routes from './routes';
 import reducers from './reducers';
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory({
+//   base: '/b-site/'
+// });
+const hashHistory = createHashHistory();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const middleware = [Thunk, routerMiddleware(history)];
+const middleware = [Thunk, routerMiddleware(hashHistory)];
 
 const store = createStore(reducers, composeEnhancers(
   applyMiddleware(...middleware)
@@ -22,6 +25,6 @@ const store = createStore(reducers, composeEnhancers(
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history} children={Routes} />
+    <ConnectedRouter history={hashHistory} children={Routes} />
   </Provider>
   , document.querySelector('.app-container'));
